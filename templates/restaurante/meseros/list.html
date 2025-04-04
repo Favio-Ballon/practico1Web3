@@ -1,0 +1,48 @@
+{% extends "restaurante/base.html" %}
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div class="card mt-2">
+                    <div class="card-body">
+                        <div class="card-title">Lista de Meseros</div>
+
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>Nombre</th>
+                                <th>Apellido</th>
+                                <th>Telefono</th>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for mesero in meseros %}
+                                <tr>
+                                    <td> {{ mesero.id }}</td>
+                                    <td> {{ mesero.nombre }}</td>
+                                    <td> {{ mesero.apellido }}</td>
+                                    <td> {{ mesero.telefono }}</td>
+                                    <td>
+                                        <a class="btn btn-primary"
+                                           href="{% url "meseros_edit" mesero.id %}">Editar</a>
+                                    </td>
+                                    <td>
+                                        <form action="{% url "meseros_delete" mesero.id %}" method="post">
+                                            {% csrf_token %}
+                                            <input class="btn btn-danger" type="submit" value="Eliminar">
+                                        </form>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

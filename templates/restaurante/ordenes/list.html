@@ -1,0 +1,79 @@
+{% extends "restaurante/base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2 class="mb-4 text-center">📋 Lista de Órdenes</h2>
+
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <table class="table table-hover align-middle text-center">
+                <thead class="table-dark">
+                    <tr>
+                        <th>ID</th>
+                        <th>Mesa</th>
+                        <th>Mesero</th>
+                        <th>Platos Ordenados</th>
+                        <th>Estado</th>
+                        <th colspan="4">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for orden in ordenes %}
+                    <tr>
+                        <td>{{ orden.id }}</td>
+                        <td>{{ orden.mesa }}</td>
+                        <td>{{ orden.mesero }}</td>
+                        <td class="text-start">
+                            {% for orden_plato in orden.orden_platos.all %}
+                                <div class="mb-1">
+                                    🍽️ {{ orden_plato.plato.nombre }} x{{ orden_plato.cantidad }}
+                                </div>
+                            {% empty %}
+                                <span class="text-muted">Sin platos</span>
+                            {% endfor %}
+                        </td>
+                        <td>
+                            {% if orden.estado == 1 %}
+                                <span class="badge bg-success">En curso</span>
+                            {% else %}
+                                <span class="badge bg-secondary">Completada</span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if orden.estado == 1 %}
+                                <a class="btn btn-outline-primary btn-sm" href="{% url "agregar_plato" orden.id %}">
+                                    ➕ Añadir Plato
+                                </a>
+                            {% else %}
+                                 <p>
+                                 pagado por {{ orden.cliente.nombre }}
+                                 </p>
+
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if orden.estado == 1 %}
+                            <a class="btn btn-outline-success btn-sm" href="{% url "clientes_create" orden.id %}">
+                                💰 Pagar Cuenta
+                            </a>
+                            {% endif %}
+                        </td>
+                        <td>
+                            <a class="btn btn-outline-warning btn-sm" href="{% url "ordenes_edit" orden.id %}">
+                                ✏️ Editar
+                            </a>
+                        </td>
+                        <td>
+                            <form action="{% url "ordenes_delete" orden.id %}" method="post" onsubmit="return confirm('¿Estás seguro de eliminar esta orden?');">
+                                {% csrf_token %}
+                                <input class="btn btn-outline-danger btn-sm" type="submit" value="🗑️ Eliminar">
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}
