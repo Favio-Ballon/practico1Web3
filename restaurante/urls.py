@@ -28,6 +28,7 @@ urlpatterns = [
     path("ordenes/<int:id>", views.ordenes_edit, name="ordenes_edit"),
     path("ordenes/<int:id>/delete", views.ordenes_delete, name="ordenes_delete"),
     path("ordenes/<int:id>/plato", views.agregar_plato, name="agregar_plato"),
+    path("ordenes/plato/<int:id>", views.eliminar_plato, name="eliminar_plato"),
 
     # Clientes
     path("clientes", views.clientes_list, name="clientes_list"),

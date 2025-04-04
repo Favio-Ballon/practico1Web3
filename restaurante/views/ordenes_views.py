@@ -74,3 +74,8 @@ def agregar_plato(request, id):
         "restaurante/ordenes/agregar_plato.html",
         {"orden": orden, "platos": platos, "form": form}
     )
+
+def eliminar_plato(request,id):
+    orden_plato = OrdenPlato.objects.get(id=id)
+    orden_plato.delete()
+    return redirect("ordenes_list")

@@ -27,6 +27,9 @@
                             {% for orden_plato in orden.orden_platos.all %}
                                 <div class="mb-1">
                                     🍽️ {{ orden_plato.plato.nombre }} x{{ orden_plato.cantidad }}
+                                    {% if orden.estado == 1 %}
+                                        <a href="{% url "eliminar_plato" orden_plato.id %}" class="btn btn-close"></a>
+                                    {% endif %}
                                 </div>
                             {% empty %}
                                 <span class="text-muted">Sin platos</span>
