@@ -37,6 +37,6 @@ urlpatterns = [
     path("clientes/<int:id>/delete", views.clientes_delete, name="clientes_delete"),
 
 
-    re_path(r'^.*$', lambda request: redirect('platos_list')),
+    re_path(r'^.*$', lambda request: redirect('ordenes_list')),
 
     ]

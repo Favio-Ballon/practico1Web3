@@ -10,6 +10,7 @@
                 <thead class="table-dark">
                     <tr>
                         <th>ID</th>
+                        <th>fecha</th>
                         <th>Mesa</th>
                         <th>Mesero</th>
                         <th>Platos Ordenados</th>
@@ -21,6 +22,7 @@
                     {% for orden in ordenes %}
                     <tr>
                         <td>{{ orden.id }}</td>
+                        <td>{{ orden.fechaHora }}</td>
                         <td>{{ orden.mesa }}</td>
                         <td>{{ orden.mesero }}</td>
                         <td class="text-start">
@@ -49,7 +51,7 @@
                                 </a>
                             {% else %}
                                  <p>
-                                 pagado por {{ orden.cliente.nombre }}
+                                 pagado por {{ orden.cliente.nombre }} <br>nit {{ orden.cliente.nit }}
                                  </p>
 
                             {% endif %}
